@@ -1,0 +1,602 @@
+<html lang="bg"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PK Electronics - Сигурност и Видеонаблюдение</title>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ef4444">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PK Electronics">
+    <link rel="apple-touch-icon" href="https://placehold.co/192x192/ef4444/ffffff?text=PK">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ef4444; 
+            --primary-glow: rgba(239, 68, 68, 0.3);
+            --bg: #0b0f19;     
+            --card-bg: rgba(20, 27, 45, 0.85); /* Полупрозрачен фон за карти с цел четливост над визитката */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        h1, h2, h3, .slogan-box p, .btn-call, .btn-viber, form button { 
+            font-family: 'Orbitron', sans-serif; 
+        }
+
+        body { 
+            background-color: #020617; 
+            color: var(--text-main); 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh; 
+        }
+        
+        /* КОРИГИРАНО: Визитката е зададена като основен фон на тялото на приложението */
+        .phone-wrapper { 
+            width: 100%; 
+            max-width: 450px; 
+            background: linear-gradient(rgba(11, 15, 25, 0.75), rgba(11, 15, 25, 0.85)), url('vizitka pk electronics.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: local;
+            min-height: 100vh; 
+            padding-bottom: 95px; 
+            position: relative; 
+            box-shadow: 0 0 35px rgba(0,0,0,0.8); 
+            border: 1px solid #1e293b;
+        }
+        
+        /* КОРИГИРАНО: Модерен стъклен хедър, за да изглежда логото напълно интегрирано */
+        header { 
+            padding: 25px 15px 15px 15px; 
+            text-align: center; 
+            background: rgba(14, 19, 34, 0.6);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+            margin-bottom: 15px;
+        }
+        
+        .logo-container { 
+            width: 130px; 
+            height: auto; 
+            margin: 0 auto 10px auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .logo-container img { 
+            max-width: 100%; 
+            height: auto; 
+            object-fit: contain; 
+            filter: drop-shadow(0 0 8px var(--primary-glow));
+        }
+
+        header h1 { font-size: 22px; color: var(--text-main); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 5px; }
+        header h1 span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        
+        .slogan-box { 
+            background: rgba(17, 24, 39, 0.8); 
+            border: 1px solid var(--primary); 
+            box-shadow: 0 0 15px var(--primary-glow);
+            padding: 12px; 
+            margin: 15px; 
+            border-radius: 12px; 
+            text-align: center; 
+            transform: skewX(-5deg); 
+            backdrop-filter: blur(4px);
+        }
+        .slogan-box h3 { color: var(--text-muted); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+        .slogan-box p { color: #ffffff; font-size: 19px; font-weight: 800; margin-top: 3px; letter-spacing: 1px; }
+
+        .container { padding: 0 15px; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 { font-size: 14px; margin: 25px 0 15px 0; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--primary), transparent); }
+        
+        .card { 
+            background-color: var(--card-bg); 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            border: 1px solid rgba(30, 41, 59, 0.7); 
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+            overflow: hidden;
+            backdrop-filter: blur(6px);
+        }
+        .card-content { padding: 20px; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); transform: translateY(-2px); }
+        
+        .brand-logo-wrapper { width: 100%; height: 100px; background: rgba(9, 13, 22, 0.85); display: flex; align-items: center; justify-content: center; padding: 15px; border-bottom: 1px solid rgba(30, 41, 59, 0.5); position: relative; overflow: hidden;}
+        .brand-logo-wrapper svg, .brand-logo-wrapper img { max-width: 85%; max-height: 85%; }
+        
+        .service-image-placeholder {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(15, 23, 42, 0.8));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--primary);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+        }
+        .service-image-placeholder i { font-size: 42px; text-shadow: 0 0 15px var(--primary-glow); }
+        .service-image-placeholder span { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .card h3 { padding: 6px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 16px; display: flex; align-items: center; gap: 10px; letter-spacing: 0.5px; }
+        
+        .ajax-title { background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent); border-left: 3px solid #ffffff; color: #fff !important; }
+        .hik-title { background: linear-gradient(90deg, rgba(211,47,47,0.15), transparent); border-left: 3px solid #D32F2F; color: #ff8a8a !important; }
+        .dahua-title { background: linear-gradient(90deg, rgba(229,57,53,0.15), transparent); border-left: 3px solid #E53935; color: #ff7d7d !important; }
+        
+        .card h3 i { color: inherit; }
+        .card p { font-size: 14px; line-height: 1.6; color: #cbd5e1; }
+        
+        .badge-group { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        .badge { display: inline-block; background: #1e293b; color: #cbd5e1; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; border: 1px solid #334155; text-transform: uppercase; }
+        .badge.price { background: linear-gradient(135deg, #e11d48, #991b1b); color: white; border: none; }
+        
+        .action-buttons { display: flex; gap: 12px; margin: 20px 0; }
+        .btn-call { background: linear-gradient(135deg, #16a34a, #15803d); color: white; text-decoration: none; padding: 14px; border-radius: 10px; text-align: center; font-weight: bold; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3); }
+        .btn-viber { background: linear-gradient(135deg, #7360f2, #5b46e0); color: white; text-decoration: none; padding: 14px; border-radius: 10px; text-align: center; font-weight: bold; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(115, 96, 242, 0.3); }
+
+        form { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid rgba(30, 41, 59, 0.7); backdrop-filter: blur(6px); }
+        label { font-size: 12px; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #090d16; color: white; margin-bottom: 16px; font-size: 15px; transition: 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 8px var(--primary-glow); outline: none; }
+        form button { background: linear-gradient(135deg, var(--primary), #991b1b); color: white; padding: 16px; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; letter-spacing: 1px; width: 100%; box-shadow: 0 4px 15px var(--primary-glow); }
+        
+        .nav-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; background: #0e1322; display: flex; justify-content: space-around; padding: 14px 0; border-top: 1px solid #1e293b; z-index: 1000; }
+        .nav-item { text-align: center; color: var(--text-muted); text-decoration: none; font-size: 10px; flex: 1; background: none; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+        .nav-item i { font-size: 18px; display: block; margin-bottom: 6px; color: var(--text-muted); transition: 0.2s; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { color: var(--primary); transform: translateY(-2px); }
+
+        .info-list { list-style: none; font-size: 14px; color: #cbd5e1; }
+        .info-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .info-list i { color: var(--primary); width: 20px; }
+        
+        .business-card {
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid var(--primary);
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+        }
+        .biz-title { font-size: 20px; text-transform: uppercase; color: #fff; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; }
+        .biz-subtitle { font-size: 12px; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; font-weight: bold; }
+
+        .unicredit-banner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(20,27,45,0.95), rgba(30,10,10,0.9));
+            border: 1px solid rgba(226, 0, 26, 0.5);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px rgba(226, 0, 26, 0.15);
+            backdrop-filter: blur(6px);
+        }
+
+
+        .services-table-wrapper {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(30,41,59,0.8);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            background: var(--card-bg);
+            backdrop-filter: blur(6px);
+            table-layout: fixed;
+        }
+        .services-table thead tr {
+            background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(153,27,27,0.2));
+        }
+        .services-table th {
+            padding: 10px 6px;
+            text-align: left;
+            color: var(--primary);
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(239,68,68,0.3);
+            overflow: hidden;
+        }
+        .services-table th:nth-child(1) { width: 38%; }
+        .services-table th:nth-child(2) { width: 30%; }
+        .services-table th:nth-child(3) { width: 32%; }
+        .service-row {
+            transition: background 0.2s;
+        }
+        .service-row:hover, .service-row:active {
+            background: rgba(239,68,68,0.08);
+        }
+        .service-row td {
+            padding: 10px 6px;
+            border-bottom: 1px solid rgba(30,41,59,0.6);
+            vertical-align: middle;
+            overflow: hidden;
+        }
+        .svc-name {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 11px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .svc-name i { color: var(--primary); margin-right: 3px; }
+        .svc-time {
+            color: #94a3b8;
+            font-size: 10px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .svc-price {
+            color: #cbd5e1;
+            font-size: 10px;
+            text-align: center;
+            font-weight: 600;
+            word-wrap: break-word;
+        }
+        .svc-price.free {
+            color: #22c55e;
+            text-shadow: 0 0 8px rgba(34,197,94,0.4);
+        }
+        .service-desc {
+            display: table-row;
+            background: rgba(15,23,42,0.7);
+        }
+        .service-desc.open { display: table-row; }
+        .service-desc td {
+            padding: 10px 8px;
+            color: #94a3b8;
+            font-size: 11px;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(30,41,59,0.6);
+            word-wrap: break-word;
+        }
+        .service-desc td i { color: var(--primary); margin-right: 6px; }
+        .table-hint {
+            background: rgba(15,23,42,0.5);
+            padding: 8px 14px;
+            font-size: 11px;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .table-hint i { color: #334155; }
+        .unicredit-section {
+            background: linear-gradient(135deg, rgba(20,27,45,0.95), rgba(30,10,10,0.9));
+            border: 1px solid rgba(226, 0, 26, 0.5);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(226, 0, 26, 0.15);
+            backdrop-filter: blur(6px);
+        }
+        .unicredit-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(226,0,26,0.3);
+        }
+        .unicredit-header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .unicredit-header-text strong {
+            font-size: 18px;
+            color: #22c55e;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .installment-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .installment-table thead tr {
+            background: rgba(226, 0, 26, 0.2);
+        }
+        .installment-table th {
+            padding: 10px 8px;
+            text-align: center;
+            color: #fca5a5;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(226,0,26,0.3);
+        }
+        .installment-table th:first-child { text-align: left; }
+        .installment-table td {
+            padding: 10px 8px;
+            text-align: center;
+            color: #e2e8f0;
+            border-bottom: 1px solid rgba(30,41,59,0.5);
+        }
+        .installment-table td:first-child {
+            text-align: left;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .installment-table tbody tr:hover {
+            background: rgba(226,0,26,0.08);
+        }
+        .installment-table tbody tr:last-child td { border-bottom: none; }
+        .unicredit-note {
+            font-size: 11px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .unicredit-note i { color: #e2001a; }
+        .unicredit-logo { flex-shrink: 0; }
+        .unicredit-text { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+        .unicredit-title { font-size: 13px; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; }
+        .unicredit-sub { font-size: 11px; color: #fca5a5; letter-spacing: 0.5px; }
+        .unicredit-badge i { color: #22c55e; font-size: 22px; }
+    </style>
+</head>
+<body>
+
+    <div class="phone-wrapper">
+        <header>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Лого PK Electronics" onerror="this.src='https://placehold.co/150x150/0b0f19/ef4444?text=PK+Electronics';">
+            </div>
+            <h1>PK <span>Electronics</span> Ltd</h1>
+        </header>
+
+        <div class="slogan-box">
+            <h3>Вашата сигурност</h3>
+            <p>НАШ ПРИОРИТЕТ!</p>
+        </div>
+
+        <div class="container">
+            
+            <div id="brands" class="section">
+                <h2><i class="fa-solid fa-layer-group"></i> СИСТЕМИ ЗА СИГУРНОСТ</h2>
+                
+                <div class="card">
+                    <div class="brand-logo-wrapper">
+                        <img src="https://logo.clearbit.com/ajax.systems" alt="Ajax Systems" style="max-height:70px; object-fit:contain; filter:brightness(0) invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none; font-family:'Orbitron',sans-serif; font-size:36px; font-weight:900; color:#fff; letter-spacing:4px;">AJAX</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="ajax-title"><i class="fa-solid fa-shield-halved"></i> AJAX SYSTEMS</h3>
+                        <p>Безжична сигурност от бъдещето. Изключително стилен дизайн, надеждна защита срещу заглушаване на сигнала и мигновени известия на телефона Ви.</p>
+                        <div class="badge-group"><span class="badge">Алармени системи (СОТ)</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="brand-logo-wrapper">
+                        <img src="https://logo.clearbit.com/hikvision.com" alt="Hikvision" style="max-height:70px; object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none; font-family:'Arial Black',sans-serif; font-size:30px; font-weight:900; color:#D32F2F;">HIKVISION</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="hik-title"><i class="fa-solid fa-video"></i> HIKVISION</h3>
+                        <p>Световен лидер в професионалните системи за видеонаблюдение. Високо качество на картината, нощно виждане с ColorVu технология и интелигентно разпознаване на хора.</p>
+                        <div class="badge-group"><span class="badge">Видеонаблюдение</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="brand-logo-wrapper">
+                        <img src="https://logo.clearbit.com/dahuasecurity.com" alt="Dahua Technology" style="max-height:70px; object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span style="display:none; font-family:'Orbitron',sans-serif; font-size:32px; font-weight:bold; color:#E53935;">dahua</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="dahua-title"><i class="fa-solid fa-eye"></i> DAHUA TECHNOLOGY</h3>
+                        <p>Иновативни решения с изкуствен интелект (WizSense). Кристален детайл на изображението за дома и бизнеса дори в пълен мрак.</p>
+                        <div class="badge-group"><span class="badge">Контрол на достъп</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="services" class="section">
+                <h2><i class="fa-solid fa-screwdriver-wrench"></i> НАШИТЕ УСЛУГИ</h2>
+
+                <div class="services-table-wrapper">
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fa-solid fa-list-check"></i> Услуга</th>
+                                <th><i class="fa-regular fa-clock"></i> Времетраене</th>
+                                <th><i class="fa-solid fa-tag"></i> Цена</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="service-row">
+                                <td class="svc-name"><i class="fa-solid fa-magnifying-glass"></i> Безплатен оглед и консултация</td>
+                                <td class="svc-time">30–60 мин.</td>
+                                <td class="svc-price free">0,00 лв</td>
+                            </tr>
+                            <tr class="service-desc" id="desc1">
+                                <td colspan="3"><i class="fa-solid fa-circle-info"></i> Наш специалист ще посети обекта Ви (дом, офис, магазин), за да оцени рисковете и да предложи най-добрата схема за разположение на камери и датчици съобразно Вашия бюджет.</td>
+                            </tr>
+                            <tr class="service-row">
+                                <td class="svc-name"><i class="fa-solid fa-video"></i> Монтаж на видеонаблюдение</td>
+                                <td class="svc-time">По договаряне</td>
+                                <td class="svc-price">По запитване</td>
+                            </tr>
+                            <tr class="service-desc" id="desc2">
+                                <td colspan="3"><i class="fa-solid fa-circle-info"></i> Професионално окабеляване, монтаж и настройка на камери за видеонаблюдение Hikvision и Dahua. Включва конфигуриране на приложение за отдалечен достъп през телефон.</td>
+                            </tr>
+                            <tr class="service-row">
+                                <td class="svc-name"><i class="fa-solid fa-shield-halved"></i> Монтаж на алармени системи (СОТ)</td>
+                                <td class="svc-time">По договаряне</td>
+                                <td class="svc-price">По запитване</td>
+                            </tr>
+                            <tr class="service-desc" id="desc3">
+                                <td colspan="3"><i class="fa-solid fa-circle-info"></i> Проектиране и изграждане на съвременни смарт системи за сигурност Ajax. Свързване с лицензирани фирми за охрана и настройка на известията на Вашия смартфон.</td>
+                            </tr>
+                            <tr class="service-row">
+                                <td class="svc-name"><i class="fa-solid fa-screwdriver-wrench"></i> Абонаментна поддръжка и профилактика</td>
+                                <td class="svc-time">1–2 часа</td>
+                                <td class="svc-price">По договаряне / Месечен абонамент</td>
+                            </tr>
+                            <tr class="service-desc" id="desc4">
+                                <td colspan="3"><i class="fa-solid fa-circle-info"></i> Периодична проверка на изправността на Вашите охранителни системи. Включва почистване на обективите на камерите, проверка на хард дисковете (записите), тестване на резервните батерии на алармите и актуализация на софтуера за максимална сигурност.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="display:none">
+                    <div class="service-image-placeholder">
+                        <i class="fa-solid fa-building-shield"></i>
+                        <span>Смарт алармени датчици</span>
+                    </div>
+                    <div class="card-content">
+                        <h3><i class="fa-solid fa-shield-halved"></i> Монтаж на алармени системи (СОТ)</h3>
+                        <p>Проектиране и изграждане на съвременни смарт системи за сигурност Ajax. Свързване с лицензирани фирми за охрана и настройка на известията на Вашия смартфон.</p>
+                        <div class="badge-group">
+                            <span class="badge"><i class="fa-regular fa-clock"></i> По договаряне</span>
+                            <span class="badge price">По запитване</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="booking" class="section active">
+                <h2><i class="fa-solid fa-address-card"></i> ДИГИТАЛНА ВИЗИТКА</h2>
+                
+                <div class="business-card">
+                    <div class="biz-title">PK Electronics Ltd</div>
+                    <div class="biz-subtitle">Сигурност &amp; Видеонаблюдение</div>
+                    <ul class="info-list">
+                        <li><i class="fa-solid fa-phone"></i> 0893 03 3663</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@pkelectronics.bg</li>
+                        <li><i class="fa-solid fa-location-dot"></i> гр. Варна, България</li>
+                    </ul>
+                </div>
+
+                <h2><i class="fa-solid fa-calendar-days"></i> СВЪРЖИ СЕ С НАС</h2>
+                <div class="action-buttons">
+                    <a href="tel:0893033663" class="btn-call"><i class="fa-solid fa-phone"></i> НАБЕРИ</a>
+                    <a href="viber://chat?number=%2B359893033663" class="btn-viber"><i class="fa-brands fa-viber"></i> VIBER</a>
+                </div>
+
+                <!-- UniCredit Bulbank Banner -->
+                <div class="unicredit-banner">
+                    <div class="unicredit-logo">
+                        <svg viewBox="0 0 220 50" width="160" height="36">
+                            <!-- UniCredit червен кръг -->
+                            <circle cx="25" cy="25" r="22" fill="#e2001a"/>
+                            <text x="25" y="30" font-family="Arial" font-size="11" font-weight="bold" fill="white" text-anchor="middle">UC</text>
+                            <!-- Текст UniCredit BulBank -->
+                            <text x="55" y="20" font-family="Arial" font-size="13" font-weight="bold" fill="#e2001a">UniCredit</text>
+                            <text x="55" y="36" font-family="Arial" font-size="11" fill="#ffffff">Bulbank</text>
+                        </svg>
+                    </div>
+                    <div class="unicredit-text">
+                        <span class="unicredit-title">Изплащане на вноски</span>
+                        <span class="unicredit-sub">до 24 месеца без лихва</span>
+                    </div>
+                    <div class="unicredit-badge">
+                        <i class="fa-solid fa-check-circle"></i>
+                    </div>
+                </div>
+
+                <form id="leadForm">
+                    <label>Вашето Име</label>
+                    <input type="text" id="client_name" placeholder="Иван Иванов" required="">
+
+                    <label>Телефон за връзка</label>
+                    <input type="tel" id="client_phone" placeholder="0893 03 3663" required="">
+
+                    <label>Адрес на обекта</label>
+                    <input type="text" id="client_address" placeholder="Град, улица..." required="">
+
+                    <label>Изберете Услуга</label>
+                    <select id="chosen_service">
+                        <option value="Безплатен оглед">Безплатен оглед и консултация</option>
+                        <option value="Монтаж Видеонаблюдение">Монтаж на видеонаблюдение</option>
+                        <option value="Монтаж СОТ">Монтаж на алармени системи (СОТ)</option>
+                    </select>
+
+                    <label>Начин на плащане</label>
+                    <select id="payment_method">
+                        <option value="Наличност">В брой</option>
+                        <option value="Банков превод">Банков превод</option>
+                        <option value="Разсрочено UniCredit">На вноски — UniCredit Bulbank</option>
+                    </select>
+
+                    <label>Предпочитана дата и час</label>
+                    <input type="datetime-local" id="chosen_date" required="">
+
+                    <button type="submit">Изпрати Заявка</button>
+                </form>
+            </div>
+
+        </div>
+
+        <nav class="nav-bar">
+            <button class="nav-item" onclick="switchSection('brands', this)">
+                <i class="fa-solid fa-shield-halved"></i> Системи
+            </button>
+            <button class="nav-item" onclick="switchSection('services', this)">
+                <i class="fa-solid fa-layer-group"></i> Услуги
+            </button>
+            <button class="nav-item active" onclick="switchSection('booking', this)">
+                <i class="fa-solid fa-phone-volume"></i> Контакти
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        function toggleDesc(id) {
+            var el = document.getElementById(id);
+            el.classList.toggle('open');
+        }
+        function switchSection(sectionId, element) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            element.classList.add('active');
+            window.scrollTo(0,0);
+        }
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Заявката е приета успешно!');
+        });
+    </script>
+
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+      }
+    </script>
+</body></html>
